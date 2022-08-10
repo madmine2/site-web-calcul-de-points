@@ -65,9 +65,12 @@
             
           </div>
            <div class="col-2 form-outline" style="padding-top:2%;">
-  <input type="number" id="typeNumber" max="10" min="2" class="form-control" />
+          <input type="number" id="typeNumber" max="10" min="2" class="form-control" />
 
-</div>
+          </div>
+        <div class="col-1 form-outline" style="padding-top:2%;">
+          <button class="btn btn-success" onclick='displayElements()'>Ok!</button>
+        </div>
         </div>
       </div>
      
@@ -165,7 +168,23 @@
     </footer>
     
     <script>
-    document.getElementById("typeNumber").addeventListener("")
+    function displayElements(){
+      const inputValue = document.getElementById("typeNumber").value
+      if(inputValue== ""){
+        window.alert("C'est pas un nombre ça, si t'as un doute consulte ça : https://turbulus.com/ludoeducatifs/chiffres/504-nombres-de-1-a-10");
+          return;
+      }
+      if(inputValue > 10 || inputValue < 2){
+        window.alert("Maximum 10 évaluations et minimum 2");
+        return;
+      }
+      
+      for(var i = 1; i<= inputValue.length;i++){
+
+      }
+
+
+    }
     </script>
     
     
