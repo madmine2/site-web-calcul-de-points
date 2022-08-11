@@ -1,5 +1,5 @@
    <!DOCTYPE html>
-<html lang="en" style="height:80vh;">
+<html lang="en" style="height:90vh;">
   <head>
     <!--
       This is the page head - it contains info the browser uses to display the page
@@ -29,7 +29,7 @@
     <!-- Import the webpage's javascript file -->
     <script src="/script.js" defer></script>
   </head>
-  <body style="height:80vh">
+  <body style="height:90vh">
     
     
     
@@ -72,9 +72,11 @@
           <button class="btn btn-success" onclick='displayElements()'>Ok!</button>
         </div>
         </div>
+        <div class="row" id="elementsDiv" style="padding-top: 3%;">
+               </div>
       </div>
      
-         
+  
      
      
    
@@ -168,22 +170,144 @@
     </footer>
     
     <script>
+      var inputValue;
+function calculPoints(){
+  console.log(document.getElementById("elementsDiv").children); 
+  var childrens = document.getElementById("elementsDiv").children;
+  var totalPourcent = 0;
+  var score = 0;
+for (var i =3; i < (inputValue-1)*7+2; i=i+7){
+  var point,max,pourcent;
+  var alternate = 0;
+  for(var j = i; j < i+6;j=j+2){
+    var value = childrens[j].children[0].value;
+    console.log(j);
+    console.log(value);
+    if(value  == ""){
+      window.alert("Remplissez tous les champs, si vous avez du mal consultez ceci : https://www.lesbonsclics.fr/upload/trainings/public/comment-remplir-des-formulaires-en-ligne/content/index.html#/?_k=kgp5gp")
+    return;
+    }
+    switch(alternate){
+      case 0 :point =parseFloat(value) ;
+      break;
+      case 1 :max = parseFloat(value);
+      break;
+      case 2 :pourcent = parseFloat(value);
+      break;
+    }
+    alternate++;
+  }
+ if(point > max){
+  window.alert("tu as tapé plus que 20/20 à une évaluation, t'es chaud toi")
+  return;
+ }
+ if(pourcent == 0){
+  window.alert("t'as une évaluation qui vaut 0 pourcent de ton année, super utile");
+  return;
+ }
+ score += (point/max) * pourcent/100;
+ totalPourcent +=parseInt(pourcent);
+}
+if(totalPourcent > 99){
+  window.alert("la somme du pourcentage de tes évaluations fait plus que 99%, il y a un problème là. ");
+  return;
+}
+var scoreAFaire = ((0.5 - score)/(1 - totalPourcent/100))*20
+console.log("tu dois faire : " +scoreAFaire + " / 20");
+}
+
+
     function displayElements(){
-      const inputValue = document.getElementById("typeNumber").value
+       inputValue = document.getElementById("typeNumber").value
       if(inputValue== ""){
         window.alert("C'est pas un nombre ça, si t'as un doute consulte ça : https://turbulus.com/ludoeducatifs/chiffres/504-nombres-de-1-a-10");
           return;
       }
-      if(inputValue > 10 || inputValue < 2){
-        window.alert("Maximum 10 évaluations et minimum 2");
+      if(inputValue > 9 || inputValue < 2){
+        window.alert("Maximum 9 évaluations et minimum 2");
         return;
       }
-      
-      for(var i = 1; i<= inputValue.length;i++){
-
+      document.getElementById("elementsDiv").innerHTML = "";
+      const tempText2 = document.createElement("h4");
+        const tempDiv6 = document.createElement("div");
+        const tempDiv7 = document.createElement("div");
+        tempText2.textContent = "Indique les points que tu as eu aux évaluations précédentes et le pourcentage de l'année qu'elles valent"
+        tempDiv6.setAttribute("class","col-11 offset-1 ");
+        tempDiv6.style.paddingBottom = "3%";
+        tempDiv7.setAttribute("class","col-3  ");
+        tempDiv6.appendChild(tempText2);
+        document.getElementById('elementsDiv').appendChild(tempDiv6);
+       // document.getElementById('elementsDiv').appendChild(tempDiv7);
+      for(var i = 1; i<= inputValue-1;i++){
+        //labels---------------------------------
+        console.log(i);
+        const tempDiv1 = document.createElement("div");
+        const tempSpan = document.createElement("span");
+        const tempH1 = document.createElement("h1");
+        tempSpan.textContent = i;
+        tempSpan.setAttribute('class',"badge bg-primary");
+        tempH1.appendChild(tempSpan)
+        tempDiv1.appendChild(tempH1);
+        tempDiv1.setAttribute("class","col-1 offset-1");
+        document.getElementById('elementsDiv').appendChild(tempDiv1);
+        // text ---------------------------------
+        const tempText2 = document.createElement("h1");
+        const tempDiv6 = document.createElement("div");
+        tempText2.textContent = "Points : "
+        tempDiv6.setAttribute("class","col-2 ");
+        tempDiv6.appendChild(tempText2);
+        document.getElementById('elementsDiv').appendChild(tempDiv6);
+        //inputs --------------------------
+        const tempDiv2 = document.createElement("div");
+        const tempDiv3 = document.createElement("div");
+        const tempDiv4 = document.createElement("div");
+        const tempInput1 = document.createElement("input")
+        const tempInput2 = document.createElement("input")
+        const tempH2 = document.createElement("h1");
+        tempH2.textContent = " / ";
+        tempInput1.setAttribute('class',"form-control");
+        tempInput2.setAttribute('class',"form-control");
+        tempInput1.setAttribute('type',"number");
+        tempInput2.setAttribute('type',"number");
+        tempInput1.setAttribute('min',"0");
+        tempInput2.setAttribute('min',"0");
+        tempDiv2.setAttribute("class","col-1 ");
+        tempDiv3.setAttribute("class","col-1 ");
+        tempDiv4.setAttribute("class","col-1 ");
+        tempDiv2.appendChild(tempInput1);
+       // tempDiv2.appendChild(tempH2);
+        tempDiv3.appendChild(tempInput2);
+        tempDiv4.appendChild(tempH2);
+        document.getElementById('elementsDiv').appendChild(tempDiv2);
+       document.getElementById('elementsDiv').appendChild(tempDiv4);
+        document.getElementById('elementsDiv').appendChild(tempDiv3);
+        //text ----------------------------------
+        const tempText = document.createElement("h1");
+        const tempDiv5 = document.createElement("div");
+        tempText.textContent = "% de l'évaluation :"
+        tempDiv5.setAttribute("class","col-4 ");
+        tempDiv5.appendChild(tempText);
+        document.getElementById('elementsDiv').appendChild(tempDiv5);
+        // inputs
+        const tempDiv7 = document.createElement("div");
+        const tempInput3 = document.createElement("input")
+        tempInput3.setAttribute('class',"form-control");
+        tempInput3.setAttribute('type',"number");
+        tempInput3.setAttribute('min',"0");
+        tempInput3.setAttribute('max',"100");
+        tempDiv7.setAttribute("class","col-1 ");
+        tempDiv7.appendChild(tempInput3);
+        document.getElementById('elementsDiv').appendChild(tempDiv7);
       }
-
-
+      const tempDiv8 = document.createElement("div");
+     const tempButton = document.createElement('button');
+     tempButton.setAttribute('class',"btn btn-success");
+     tempButton.setAttribute('onclick',"calculPoints()");
+     tempButton.textContent = "calcul des points"
+     tempDiv8.setAttribute("class","col-2 offset-5");
+      tempDiv8.appendChild(tempButton);
+      tempDiv8.style.marginTop = "2%";
+      document.getElementById('elementsDiv').appendChild(tempDiv8);
     }
     </script>
     
