@@ -1,5 +1,5 @@
    <!DOCTYPE html>
-<html lang="en" style="height:90vh;">
+<html lang="en" style="min-height: 80vh;">
   <head>
     <!--
       This is the page head - it contains info the browser uses to display the page
@@ -29,14 +29,14 @@
     <!-- Import the webpage's javascript file -->
     <script src="/script.js" defer></script>
   </head>
-  <body style="height:90vh">
+  <body style="min-height: 80vh;">
     
     
     
    
      <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #e3f2fd;">
   <div class="container-fluid" >
-    <a class="navbar-brand" href="#">Home</a>
+    <a class="navbar-brand" href="index.html">Home</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -51,7 +51,7 @@
   </div>
 </nav>
   
-    <div style="height: 100%; padding-top:5%;" >
+    <div style="min-height: 80vh; padding-top:5%;" >
       <div class="text-center">
          <t1>
         Combien d'évaluation as-tu au total pour ce cours ?
@@ -212,8 +212,56 @@ if(totalPourcent > 99){
   window.alert("la somme du pourcentage de tes évaluations fait plus que 99%, il y a un problème là. ");
   return;
 }
-var scoreAFaire = ((0.5 - score)/(1 - totalPourcent/100))*20
-console.log("tu dois faire : " +scoreAFaire + " / 20");
+if(document.getElementById('scoreGoalInput').value == ""){
+  var scoreGoal = 0.5
+}
+else{
+  if(document.getElementById('scoreGoalInput').value > 20){
+    window.alert("Tu veux faire plus que 20/20 à ton cours, t'as du courage toi");
+    return;
+  }
+  var scoreGoal = (document.getElementById('scoreGoalInput').value)/20;
+}
+const formatter = new Intl.NumberFormat('en-US', {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+var scoreAFaire = formatter.format(((scoreGoal - score)/(1 - totalPourcent/100))*20);
+
+if(document.getElementById("scoreDiv") != undefined){
+  document.getElementById("scoreDiv").parentNode.removeChild(document.getElementById("scoreDiv"));
+}
+if(scoreAFaire > 20){
+  const tempText = document.createElement("h3");
+        const tempDiv = document.createElement("div");
+        tempText.textContent = "T'as intêret à t'y connaitre en magie là, il te faut "+ scoreAFaire +" / 20 à la dernière évaluation pour avoir "+scoreGoal*20+" / 20 à ce cours";
+        tempDiv.setAttribute("class","col-12 ");
+        tempDiv.appendChild(tempText);
+        tempDiv.setAttribute("id","scoreDiv");
+        tempDiv.style.marginTop = "3%";
+        document.getElementById('elementsDiv').appendChild(tempDiv);
+        return;
+}
+if(scoreAFaire > 17){
+  const tempText = document.createElement("h3");
+        const tempDiv = document.createElement("div");
+        tempText.textContent = "Va falloir passer sous le bureau là, il te faut "+ scoreAFaire +" / 20 à la dernière évaluation pour avoir "+scoreGoal*20+" / 20 à ce cours";
+        tempDiv.setAttribute("class","col-12 ");
+        tempDiv.appendChild(tempText);
+        tempDiv.setAttribute("id","scoreDiv");
+        tempDiv.style.marginTop = "3%";
+        document.getElementById('elementsDiv').appendChild(tempDiv);
+        return;
+}
+
+        const tempText = document.createElement("h3");
+        const tempDiv = document.createElement("div");
+        tempText.textContent = "Tu dois faire un score de "+scoreAFaire + " / 20 à la dernière évaluation pour avoir "+scoreGoal*20+" / 20 à ce cours";
+        tempDiv.setAttribute("class","col-12 ");
+        tempDiv.appendChild(tempText);
+        tempDiv.style.marginTop = "3%";
+        tempDiv.setAttribute("id","scoreDiv");
+        document.getElementById('elementsDiv').appendChild(tempDiv);
 }
 
 
@@ -299,6 +347,29 @@ console.log("tu dois faire : " +scoreAFaire + " / 20");
         tempDiv7.appendChild(tempInput3);
         document.getElementById('elementsDiv').appendChild(tempDiv7);
       }
+
+
+      const tempText = document.createElement("h3");
+        const tempDiv = document.createElement("div");
+        tempText.textContent = "Indique le score sur 20 que tu veux faire à ce cours, par défault c'est 10/20";
+        tempDiv.setAttribute("class","col-12 ");
+        tempDiv.appendChild(tempText);
+        tempDiv.style.marginTop = "3%";
+        tempDiv.setAttribute("id","scoreDiv");
+        document.getElementById('elementsDiv').appendChild(tempDiv);
+
+        const tempDiv10 = document.createElement("div");
+        const tempInput3 = document.createElement("input")
+        tempInput3.setAttribute('class',"form-control");
+        tempInput3.setAttribute('id',"scoreGoalInput");
+        tempInput3.setAttribute('type',"number");
+        tempInput3.setAttribute('min',"0");
+        tempInput3.setAttribute('max',"100");
+        tempDiv10.setAttribute("class","col-2 offset-5");
+        tempDiv10.appendChild(tempInput3);
+        tempDiv10.style.marginTop = "1%";
+        document.getElementById('elementsDiv').appendChild(tempDiv10);
+
       const tempDiv8 = document.createElement("div");
      const tempButton = document.createElement('button');
      tempButton.setAttribute('class',"btn btn-success");
@@ -308,6 +379,8 @@ console.log("tu dois faire : " +scoreAFaire + " / 20");
       tempDiv8.appendChild(tempButton);
       tempDiv8.style.marginTop = "2%";
       document.getElementById('elementsDiv').appendChild(tempDiv8);
+
+
     }
     </script>
     
