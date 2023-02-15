@@ -1,4 +1,4 @@
-   <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" style="min-height: 80vh;">
   <head>
     <!--
@@ -208,16 +208,16 @@ for (var i =3; i < (inputValue-1)*7+2; i=i+7){
  score += (point/max) * pourcent/100;
  totalPourcent +=parseInt(pourcent);
 }
-if(totalPourcent > 99){
-  window.alert("la somme du pourcentage de tes évaluations fait plus que 99%, il y a un problème là. ");
+if(totalPourcent > 100){
+  window.alert("la somme du pourcentage de tes évaluations fait plus que 100%, il y a un problème là. ");
   return;
 }
 if(document.getElementById('scoreGoalInput').value == ""){
-  var scoreGoal = 0.5
+  window.alert("Il manque le score que tu as fait à l'examen patate");
 }
 else{
   if(document.getElementById('scoreGoalInput').value > 20){
-    window.alert("Tu veux faire plus que 20/20 à ton cours, t'as du courage toi");
+    window.alert("Plus de 20/20 au total? T'es si fort et t'as besoin d'un site pour faire ce genre de calcul ?");
     return;
   }
   var scoreGoal = (document.getElementById('scoreGoalInput').value)/20;
@@ -234,7 +234,7 @@ if(document.getElementById("scoreDiv") != undefined){
 if(scoreAFaire > 20){
   const tempText = document.createElement("h3");
         const tempDiv = document.createElement("div");
-        tempText.textContent = "T'as intêret à t'y connaitre en magie là, il te faut "+ scoreAFaire +" / 20 à la dernière évaluation pour avoir "+scoreGoal*20+" / 20 à ce cours";
+        tempText.textContent = "T'as cassé la baraque là. Tu nous as fait un score de "+ scoreAFaire +" / 20 à l' évaluation manquante pour avoir "+scoreGoal*20+" / 20 à ce cours";
         tempDiv.setAttribute("class","col-12 ");
         tempDiv.appendChild(tempText);
         tempDiv.setAttribute("id","scoreDiv");
@@ -245,7 +245,7 @@ if(scoreAFaire > 20){
 if(scoreAFaire > 17){
   const tempText = document.createElement("h3");
         const tempDiv = document.createElement("div");
-        tempText.textContent = "Va falloir passer sous le bureau là, il te faut "+ scoreAFaire +" / 20 à la dernière évaluation pour avoir "+scoreGoal*20+" / 20 à ce cours";
+        tempText.textContent = scoreAFaire +" / 20 à l'évaluation manquante. Not bad.";
         tempDiv.setAttribute("class","col-12 ");
         tempDiv.appendChild(tempText);
         tempDiv.setAttribute("id","scoreDiv");
@@ -256,7 +256,7 @@ if(scoreAFaire > 17){
 
         const tempText = document.createElement("h3");
         const tempDiv = document.createElement("div");
-        tempText.textContent = "Tu dois faire un score de "+scoreAFaire + " / 20 à la dernière évaluation pour avoir "+scoreGoal*20+" / 20 à ce cours";
+        tempText.textContent = "Tu as eu un score de "+scoreAFaire + " / 20 à l'évaluation manquante.";
         tempDiv.setAttribute("class","col-12 ");
         tempDiv.appendChild(tempText);
         tempDiv.style.marginTop = "3%";
@@ -332,7 +332,7 @@ if(scoreAFaire > 17){
         //text ----------------------------------
         const tempText = document.createElement("h1");
         const tempDiv5 = document.createElement("div");
-        tempText.textContent = "% de l'évaluation :"
+        tempText.textContent = "et  % de l'évaluation :"
         tempDiv5.setAttribute("class","col-4 ");
         tempDiv5.appendChild(tempText);
         document.getElementById('elementsDiv').appendChild(tempDiv5);
@@ -351,7 +351,7 @@ if(scoreAFaire > 17){
 
       const tempText = document.createElement("h3");
         const tempDiv = document.createElement("div");
-        tempText.textContent = "Indique le score sur 20 que tu veux faire à ce cours, par défault c'est 10/20";
+        tempText.textContent = "Indique le score sur 20 que tu as eu à ce cours";
         tempDiv.setAttribute("class","col-12 ");
         tempDiv.appendChild(tempText);
         tempDiv.style.marginTop = "3%";
